@@ -1,0 +1,7 @@
+.idea/
+.terraform
+.env
+terraform.tfvars
+build/
+node_modules/
+.nyc_output/

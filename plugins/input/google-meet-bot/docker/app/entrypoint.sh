@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# set -xeo pipefail
-set -xe
+set -xeo pipefail
 
 
 pulseaudio -D --exit-idle-time=-1
@@ -14,7 +13,8 @@ Xvfb :99 -ac -screen 0 1280x1024x16 > /dev/null 2>&1 &
 # Start chrome
 node ./puppeteer.js &
 
-sleep 5  # Ensure this has started before moving on
+sleep 1  # Ensure this has started before moving on
 # xdotool mousemove 1 1 click 1  # Move mouse out of the way so it doesn't trigger the "pause" overlay on the video tile
 
-ffmpeg -f pulse -i default -f mp3 pipe:1 | aws s3 cp - s3://${S3_BUCKET}/${S3_KEY}
+# ffmpeg -f pulse -i default -f mp3 pipe:1 | aws s3 cp - s3://${S3_BUCKET}/${S3_KEY}
+ffmpeg -f pulse -i default -f mp3 /output/output.mp3

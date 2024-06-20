@@ -16,4 +16,4 @@ clear-envs:
 
 
 run: build-quick combine-envs
-	docker run -it --env-file .env.combined -p 9222:9222 google-meet-bot
+	docker run -it --env-file .env.combined -p 9222:9222 --rm --name google-meet-bot -v ./docker/output/:/output/ google-meet-bot

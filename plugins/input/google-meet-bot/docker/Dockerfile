@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN curl -sSL https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
   echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
 RUN apt-get update && apt-get install --no-install-recommends -y \
-  gnupg pulseaudio xvfb ffmpeg unzip \
+  gnupg pulseaudio xvfb ffmpeg unzip mplayer pv \
   google-chrome-stable && \
   rm -rf /var/lib/apt/lists/*
 # RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -

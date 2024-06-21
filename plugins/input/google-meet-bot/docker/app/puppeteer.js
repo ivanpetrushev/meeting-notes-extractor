@@ -12,9 +12,11 @@ console.log(`Starting the browser: ${process.env.BROWSER_URL}`);
       "--remote-debugging-port=9222",
       // "--remote-allow-origins=*",
       "--remote-debugging-address=0.0.0.0",
-      "--headless",
+      "--autoplay-policy=no-user-gesture-required",
+      // "--headless",
       // "--user-data-dir=/tmp/user-data",
     ],
+    ignoreDefaultArgs: ["--mute-audio"],
   });
   const page = await browser.newPage();
   await page.goto(process.env.BROWSER_URL);

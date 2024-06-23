@@ -7,13 +7,11 @@ build:
 build-quick:
 	docker build -t google-meet-bot docker/
 
-
 combine-envs:
 	cat ../../../.env .env.bot > .env.combined
 
 clear-envs:
 	rm .env.combined
-
 
 run: build-quick combine-envs
 	docker run -it --env-file .env.combined \

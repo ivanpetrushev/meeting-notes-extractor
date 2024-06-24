@@ -1,4 +1,5 @@
-FROM node:20.14-bookworm
+# FROM node:20.14-bookworm
+FROM node:18-bookworm
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -14,6 +15,15 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 # Set up PulseAudio
 RUN useradd -m pulseaudio && \
   mkdir -p /etc/pulse
+
+# selenium
+# Download the Chrome Driver
+# RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
+# Unzip the Chrome Driver into /usr/local/bin directory
+# RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
+
+# RUN wget -O /tmp/chromedriver.zip https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.63/linux64/chromedriver-linux64.zip
+# RUN cd /tmp/ && unzip /tmp/chromedriver.zip && ls -la /tmp/ && cp /tmp/chromedriver-linux64/chromedriver /usr/local/bin/
 
 
 WORKDIR /app

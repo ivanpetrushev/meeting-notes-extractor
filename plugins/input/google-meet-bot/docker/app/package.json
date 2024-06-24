@@ -9,6 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "puppeteer": "^22.11.2"
+    "chromedriver": "^126.0.3",
+    "puppeteer": "^22.11.2",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "selenium-webdriver": "^4.22.0"
   }
 }

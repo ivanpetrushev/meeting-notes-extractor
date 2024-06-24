@@ -20,8 +20,12 @@ cleanup() {
 }
 trap "cleanup; exit" SIGINT SIGTERM SIGQUIT
 
+# check versions
+# google-chrome --version
+# chromedriver --version
 # Start chrome
 node ./puppeteer.js &
+# node ./selenium.js &
 
 # debug: play a simple audio file
 # mplayer -loop 0 -really-quiet ./sample-15s.mp3 &

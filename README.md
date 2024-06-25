@@ -56,6 +56,37 @@ Currently (2024-07-12) AWS pricing is:
 - AWS Transcribe: ~$0.0024 per minute of audio (~$1.44 per hour)
 - AWS Bedrock: depends on the model used, Claude 3 Haiku is roughly $0.02 for the amount of tokens needed for 1-hour conversation.
 
+## Plugins
+
+The project is structured in a way that allows for easy addition of new plugins. Plugins fall into two categories:
+- input plugins - responsible for uploading meeting recordings to the input bucket
+- output plugins - responsible for processing transcriptions and summaries from the output bucket
+
+To instal a plugin, navigate to its directory and run:
+```bash
+$ make apply
+```
+
+For more information, see the README in the plugin directory.
+
+### Input plugins
+
+- [ ] google-meet-bot - bot that joins a Google Meet call and automatically records audio. Note: this plugin probably will never be implemented (check README)
+- [ ] cli - command line interface for uploading recordings
+- [ ] google-drive - fetches recordings from Google Drive folder
+- [ ] zoom - Zoom integration
+- [ ] ms-teams - MS Teams integration
+
+### Output plugins
+
+- [ ] google-docs - uploads meeting notes to Google Docs
+- [ ] notion - uploads meeting notes to Notion
+- [ ] slack - sends meeting notes to Slack
+- [ ] email - sends meeting notes via email
+- [ ] google-chat - sends meeting notes to Google Chat
+- [ ] web-browser - displays meeting notes in a web GUI
+- [ ] ai-actions - task runner for action items
+
 ## Improvement points
 
 Current implementation is a MVP - it can be used on its own, but it would benefit greatly from any of the following:

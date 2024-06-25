@@ -23,3 +23,6 @@ run: build-quick combine-envs
 
 run-puppeteer:
 	export BROWSER_URL="https://www.youtube.com/watch?v=okK7oSTe2EQ" && cd docker/app/ && npm install && node puppeteer.js
+
+apply:
+	echo "Not implemented yet, check README.md for more information"

@@ -10,8 +10,8 @@ resource "aws_s3_bucket" "lambda_bundle" {
 data "archive_file" "lambda_bundle" {
   type = "zip"
 
-  source_dir  = "nodejs-lambdas/"
-  output_path = "build/lambdas.zip"
+  source_dir  = "/work/src/"
+  output_path = "/tmp/build/lambdas.zip"
 }
 
 resource "aws_s3_object" "lambda_bundle" {

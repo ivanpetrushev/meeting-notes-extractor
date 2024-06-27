@@ -118,39 +118,3 @@ EOF
   }
 
 }
-
-resource "aws_iam_role" "execute_lambda" {
-  name = "${var.service}-${terraform.workspace}-execute_sfn"
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "events.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
-}
-EOF
-
-  inline_policy {
-    name = "InvokeSfn"
-    policy = jsonencode({
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Action = [
-            "lambda:InvokeFunction"
-          ]
-          Effect   = "Allow"
-          Resource = aws_lambda_function.start_transcribe.arn
-        }
-      ]
-    })
-  }
-}

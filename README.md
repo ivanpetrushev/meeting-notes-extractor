@@ -28,7 +28,7 @@ AWS Bedrock: LLMs to summarize the transcript, create segments and identify acti
 - docker (preferrably) or terraform installed
 - gnumake (preferrably, or you can run commands from Makefile manually)
 - AWS Bedrock with approved LLM model access (Claude 3 Haiku is used, but model can be changed in .env file)
-- AWS S3 bucket and DynamoDB table for Terraform state and lock
+- AWS S3 bucket and DynamoDB table for Terraform state and lock (see/set in terraform/config.tf)
 
 ## Deployment
 

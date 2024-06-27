@@ -2,7 +2,7 @@ include .env
 export $(shell sed 's/=.*//' .env)
 
 TF_IMAGE = hashicorp/terraform:1.8.1
-AWS_IMAGE = public.ecr.aws/aws-cli/aws-cli
+# AWS_IMAGE = public.ecr.aws/aws-cli/aws-cli
 TERRAFORM_CMD = docker run -i -t -v ${PWD}:/work -w /work/terraform --env-file .env ${TF_IMAGE}
 # AWS_CMD = docker run -v ${PWD}:/work -w /work --env-file .env ${AWS_IMAGE}
 

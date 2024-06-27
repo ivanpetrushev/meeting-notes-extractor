@@ -40,17 +40,14 @@ module.exports.summarize = async (event) => {
   1. Transcript description:
   Short 1-2 sentences. 
   
-  2. Discussion topics:
-  Will be used as meeting tags. 1-2 words each, but be sure to be specific enough, no special symbols.
-  
-  3. Summary:
+  2. Summary:
   Go into details. 
   
-  4. Transcript segments:
+  3. Transcript segments:
   Each segment should represent a distinct topic or theme discussed during the meeting.
   For each segment provide time codes and a brief summary.
   
-  5. Action items:
+  4. Action items:
   Can you also extract action items mentioned during the meeting?
   </instructins>
   
@@ -67,12 +64,7 @@ module.exports.summarize = async (event) => {
   
   {
       "description": string,
-      "tags": [
-          string,
-          string,
-          ...
-      ],
-      "summary": string,
+      "summary": string, // don't use newlines and be sure it is valid JSON
       "segments": [
           {
               id: int, // incremental segment id starting at 0
@@ -80,15 +72,15 @@ module.exports.summarize = async (event) => {
               time_start: string, // timestamp of segment start, in "hh:mm:ss" format
               time_end: string, // timestamp of segment end, in "hh:mm:ss" format
               segment_summary_bullets: [
-                  string, // bullet items of segment summary
+                  string, // bullet items of segment summary, go straight to the point without unnecessary words
                   string,
                   ...
               ]
           }
       ],
       "action_items": [
-          string, // action item 1
-          string, // action item 2 ...
+          string, // action item 1 - be as specific as possible
+          string, // action item 2...
           ...
       ]
   }
@@ -108,6 +100,6 @@ ${transcriptContent.toString()}
   await put({
     Bucket: process.env.S3_BUCKET_OUTPUT,
     Key: outputKey,
-    Body: JSON.stringify(result, null, 2),
+    Body: result,
   });
 };

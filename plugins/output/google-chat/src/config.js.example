@@ -1,0 +1,12 @@
+// TODO: find a better place for this config
+// env vars? probably not
+
+module.exports.config = {
+  routing_rules: [
+    {
+      match: "in case this matches",
+      chat_webhook:
+        "https://chat.googleapis.com/v1/spaces/...",
+    },
+  ],
+};

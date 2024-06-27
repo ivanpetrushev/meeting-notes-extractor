@@ -22,3 +22,21 @@ resource "aws_s3_bucket_notification" "transcripts" {
 resource "aws_s3_bucket" "output" {
   bucket = "${var.service}-output-${random_string.suffix.result}-${terraform.workspace}"
 }
+
+resource "aws_s3_bucket_notification" "output" {
+  bucket = aws_s3_bucket.output.id
+  eventbridge = true
+}
+
+# Outputs
+output "s3_bucket_input" {
+  value = aws_s3_bucket.input.id
+}
+
+output "s3_bucket_transcripts" {
+  value = aws_s3_bucket.transcripts.id
+}
+
+output "s3_bucket_output" {
+  value = aws_s3_bucket.output.id
+}

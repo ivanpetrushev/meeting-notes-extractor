@@ -1,0 +1,17 @@
+// TODO: find a better place for this config
+// env vars? probably not
+
+module.exports.config = {
+  routing_rules: [
+    {
+      match_regex: ".*", // will match any summary
+      chat_webhook:
+        "https://chat.googleapis.com/v1/spaces/...",
+    },
+    {
+      match_regex: "secret", // will match only summaries containing "secret" in the S3 key
+      chat_webhook:
+        "https://chat.googleapis.com/v1/spaces/...",
+    },
+  ],
+};

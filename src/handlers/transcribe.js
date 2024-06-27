@@ -1,4 +1,4 @@
-const { startJob } = require("../lib/transcribe");
+const transcribeLib = require("../lib/transcribe");
 
 module.exports.start = async (event) => {
   console.log(`event: ${JSON.stringify(event, null, 2)}`);
@@ -21,21 +21,35 @@ module.exports.start = async (event) => {
   }
 
   // job name must satisfy regex pattern: ^[0-9a-zA-Z._-]+$, replace all non-alphanumeric characters with _
-  const inputKeyWithoutExtension = inputKey.replace(/\W/g, "_").split(".")[0];
+  const jobName = inputKey.replace(/\W/g, "_").split(".")[0];
+  const outputKey = inputKey
+    .replace(/[^a-zA-Z0-9-_.!*'()/]/g, "_")
+    .split(".")[0];
+
+  // find if job exists
+  const jobs = await transcribeLib.findJobsByName(jobName);
+  console.log(`existing jobs: ${JSON.stringify(jobs, null, 2)}`);
+  if (jobs.length > 0) {
+    console.log(`Job ${jobName} already exists, deleting`);
+    for (const job of jobs) {
+      await transcribeLib.deleteJob(job.TranscriptionJobName);
+    }
+  }
 
   const startParams = {
-    TranscriptionJobName: inputKeyWithoutExtension,
+    TranscriptionJobName: jobName,
     IdentifyLanguage: true,
     Media: {
       MediaFileUri: `s3://${process.env.S3_BUCKET_INPUT}/${inputKey}`,
     },
     OutputBucketName: process.env.S3_BUCKET_TRANSCRIPTS,
+    OutputKey: `${outputKey}.json`,
     Subtitles: {
       Formats: ["srt"],
       OutputStartIndex: 1,
     },
   };
 
-  const response = await startJob(startParams);
+  const response = await transcribeLib.startJob(startParams);
   console.log(`response: ${JSON.stringify(response, null, 2)}`);
 };

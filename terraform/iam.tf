@@ -93,6 +93,8 @@ EOF
         {
           Action = [
             "transcribe:StartTranscriptionJob",
+            "transcribe:ListTranscriptionJobs",
+            "transcribe:DeleteTranscriptionJob"
           ]
           Effect   = "Allow"
           Resource = "*"

@@ -20,33 +20,34 @@ module.exports.announceOutput = async (event, settings) => {
 
   const output = JSON.parse(outputContent);
 
-  let message = {
-    text: `*A new transcription is ready for review: ${outputKey}*\n${output.description}\n\n${output.summary}\n`,
-  };
+  let message = `*A new transcription is ready for review: ${outputKey}*\n${output.description}\n\n${output.summary}\n`;
   // add segments
   if (output.segments) {
-    message.text += "\n*Segments:*\n";
+    message += "\n*Segments:*\n";
     for (const segment of output.segments) {
-      message.text += `- ${segment.time_start} - ${segment.time_end} - ${segment.title} : \n`;
+      message += `- ${segment.time_start} - ${segment.time_end} - ${segment.title} : \n`;
       for (const bullet of segment.segment_summary_bullets) {
-        message.text += ` -- ${bullet}\n`;
+        message += ` -- ${bullet}\n`;
       }
     }
   }
   // add action items
   if (output.action_items) {
-    message.text += "\n*Action items:*\n";
+    message += "\n*Action items:*\n";
     for (const actionItem of output.action_items) {
-      message.text += `- ${actionItem}\n`;
+      message += `- ${actionItem}\n`;
     }
   }
 
   const sendPromises = [];
   for (const rule of config.routing_rules) {
     console.log(`Evaluating rule: ${JSON.stringify(rule, null, 2)}`);
-    if (outputKey.match(rule.match)) {
+    if (outputKey.match(rule.match_regex)) {
+      const chatMessage = {
+        text: `*${rule.title}*\n${message}`,
+      };
       console.log(`Matched rule: ${JSON.stringify(rule, null, 2)}`);
-      sendPromises.push(sendMessage(message, rule.chat_webhook));
+      sendPromises.push(sendMessage(chatMessage, rule.chat_webhook));
     }
   }
   await Promise.all(sendPromises);

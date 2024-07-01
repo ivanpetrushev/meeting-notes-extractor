@@ -6,16 +6,18 @@ creating segments and identifying action items.
 
 ## Architecture
 
-![Architecture](./docs/architecture.png) (TODO)
+![Architecture](./docs/general-landscape.png)
 
 The architecture includes the following components:
 
 S3 buckets:
+
 - input bucket: where meeting recordings are uploaded
 - transcript bucket: where the meeting transcript (subtitles) is stored
 - output bucket: where the summary/outcome meeting notes are stored
 
 Lambda functions:
+
 - start_transcribe: triggers the transcription process when a new recording is uploaded
 - summarize: summarizes the transcript, creates segments and identifies action items
 
@@ -37,15 +39,16 @@ Deployment and infrastructure are managed using Terraform.
 Set your pre-prepared S3 bucket and DynamoDB table for Terraform state and lock in the config.tf file: terraform -> backend -> s3.
 
 Run:
+
 ```bash
-$ make init workspace apply
+make init workspace apply
 ```
 
 This will deploy the infrastructure.
 
 ## Usage
 
-Upload a meeting recording to the input bucket. 
+Upload a meeting recording to the input bucket.
 Transcribe process will start automatically and will take some time (progress can be tracked in AWS console).
 It will generate a transcript in the transcript bucket, which will automatically start the summarization process.
 The meeting notes will be generated in the output bucket.
@@ -53,18 +56,21 @@ The meeting notes will be generated in the output bucket.
 ## Pricing
 
 Currently (2024-07-12) AWS pricing is:
+
 - AWS Transcribe: ~$0.0024 per minute of audio (~$1.44 per hour)
 - AWS Bedrock: depends on the model used, Claude 3 Haiku is roughly $0.02 for the amount of tokens needed for 1-hour conversation.
 
 ## Plugins
 
 The project is structured in a way that allows for easy addition of new plugins. Plugins fall into two categories:
+
 - input plugins - responsible for uploading meeting recordings to the input bucket
 - output plugins - responsible for processing transcriptions and summaries from the output bucket
 
 To instal a plugin, navigate to its directory and run:
+
 ```bash
-$ make apply
+make apply
 ```
 
 For more information, see the README in the plugin directory.
@@ -83,7 +89,7 @@ For more information, see the README in the plugin directory.
 - [ ] notion - uploads meeting notes to Notion
 - [ ] slack - sends meeting notes to Slack
 - [ ] email - sends meeting notes via email
-- [ ] google-chat - sends meeting notes to Google Chat
+- [x] google-chat - sends meeting notes to Google Chat
 - [ ] web-browser - displays meeting notes in a web GUI
 - [ ] ai-actions - task runner for action items
 
@@ -100,7 +106,7 @@ Current implementation is a MVP - it can be used on its own, but it would benefi
 - Inbound integrations to fetch recordings from Google Drive, MS Teams, Dropbox, etc.
 - Option to re-trigger summarization process from already transcribed recordings
 - Instructions for optimal S3 uploading of large files (s5cmd)
- 
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

@@ -19,14 +19,17 @@ You can route all summaries to a single channel with `match_regex` = `.*` or use
 Generic plugin installation instructions:
 
 ```bash
-$ cd plugins/output/google-chat
-$ make apply
+cd plugins/output/google-chat
+make apply
 ```
 
 This will:
+
 - attach S3 event listener that will trigger the announce Lambda
 
 ## Deployed infrastructure
+
+![Google Chat plugin](./../../../docs/output-google-chat-landscape.png)
 
 - Lambda function that reads summaries from the `output` S3 bucket and sends to Google Chat rooms
 - IAM role for Lambda

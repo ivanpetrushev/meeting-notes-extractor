@@ -79,7 +79,7 @@ For more information, see the README in the plugin directory.
 
 - [ ] google-meet-bot - bot that joins a Google Meet call and automatically records audio. Note: this plugin probably will never be implemented (check README)
 - [ ] cli - command line interface for uploading recordings
-- [ ] google-drive - fetches recordings from Google Drive folder
+- [x] google-drive - fetches recordings from Google Drive folder
 - [ ] zoom - Zoom integration
 - [ ] ms-teams - MS Teams integration
 

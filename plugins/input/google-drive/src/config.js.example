@@ -1,0 +1,11 @@
+// TODO: find a better place for this config
+// env vars? probably not
+
+module.exports.config = {
+  routing_rules: [
+    {
+      folder_id: "xyzxyzxyz_project_1_folder_id",
+      s3_key_prefix: "project-1-recordings/",
+    },
+  ],
+};

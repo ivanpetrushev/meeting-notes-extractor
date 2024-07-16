@@ -2,7 +2,7 @@
 const { OAuth2Client } = require("google-auth-library");
 const keys = require("../keys.json");
 
-module.exports.getCallbackTokens = async (event) => {
+module.exports.getCallbackTokens = async (code) => {
   const oAuth2Client = new OAuth2Client(
     keys.web.client_id,
     keys.web.client_secret,

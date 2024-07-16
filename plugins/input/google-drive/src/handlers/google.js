@@ -49,12 +49,13 @@ module.exports.handler = async (event) => {
   }
 
   const initialTokens = await ddbModel.getTokens();
+  let tokens = null;
   console.log("initialTokens", initialTokens);
-  const tokens = await driveModel.refreshToken(initialTokens);
-  await ddbModel.storeTokens(tokens);
+
   // hopefully invoked from browser - first run
-  if (!tokens) {
+  if (!initialTokens) {
     const authorizeUrl = await driveModel.generateAuthUrl();
+    console.log('authorizeUrl', authorizeUrl)
 
     return {
       statusCode: 307,
@@ -66,6 +67,9 @@ module.exports.handler = async (event) => {
         Location: authorizeUrl,
       },
     };
+  } else {
+      tokens = await driveModel.refreshToken(initialTokens);
+      await ddbModel.storeTokens(tokens);
   }
 
   const lastSyncTime = await ddbModel.getTimeLastSynced();

@@ -78,3 +78,12 @@ TODO:
 
 - [ ] Keep authorization tokens in AWS Secrets Manager instead of DynamoDB
 - [ ] Implement pagination when browsing Google Drive folders
+
+## Troubleshooting
+
+### Token has been expired ot revoked
+
+Delete the `token` object from DynamoDB.
+Visit the Lambda function URL to go through the authorization process again.
+
+TODO: refresh token is expected not to expire. To be verified.
